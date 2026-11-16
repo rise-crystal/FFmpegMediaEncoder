@@ -10,13 +10,9 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases/latest">
-    <img src="https://img.shields.io/badge/Download-APK-7C3AED?style=for-the-badge&logo=android&logoColor=white" alt="Download APK" />
-  </a>
-  <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases">
-    <img src="https://img.shields.io/github/v/release/rise-crystal/FFmpegMediaEncoder?style=for-the-badge&color=10B981&label=Latest%20Release" alt="Latest Release" />
-  </a>
-  <img src="https://img.shields.io/badge/Platform-Android%208.0%2B-2DD4BF?style=for-the-badge&logo=android" alt="Platform" />
+  <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases/latest"><img src="https://img.shields.io/badge/Download-APK-7C3AED?style=for-the-badge&logo=android&logoColor=white" alt="Download APK" /></a>&nbsp;
+  <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases"><img src="https://img.shields.io/github/v/release/rise-crystal/FFmpegMediaEncoder?style=for-the-badge&color=10B981&label=Latest%20Release" alt="Latest Release" /></a>&nbsp;
+  <img src="https://img.shields.io/badge/Platform-Android%208.0%2B-2DD4BF?style=for-the-badge&logo=android" alt="Platform" />&nbsp;
   <img src="https://img.shields.io/badge/Kotlin-1.9.0-8B5CF6?style=for-the-badge&logo=kotlin" alt="Kotlin" />
 </p>
 
@@ -57,11 +53,10 @@
 
 #### Langkah-langkah Instalasi:
 1. **Unduh File APK**:
-   Klik tombol di bawah ini untuk mengunduh versi rilis terbaru:
+   Klik salah satu tombol di bawah ini untuk mengunduh versi rilis terbaru:
    <p align="left">
-     <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases/latest">
-       <img src="https://img.shields.io/badge/Download-Latest%20APK-7C3AED?style=for-the-badge&logo=android&logoColor=white" alt="Download APK" />
-     </a>
+     <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases/download/v1.0.0/FFmpegMediaEncoder-v1.0.0.apk"><img src="https://img.shields.io/badge/Unduh%20Langsung-APK%20(v1.0.0)-7C3AED?style=for-the-badge&logo=android&logoColor=white" alt="Unduh Langsung APK v1.0.0" /></a>&nbsp;
+     <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases/latest"><img src="https://img.shields.io/badge/Halaman%20Rilis-GitHub-10B981?style=for-the-badge&logo=github&logoColor=white" alt="Halaman Rilis GitHub" /></a>
    </p>
 2. **Izinkan Instalasi dari Sumber Tidak Dikenal**:
    Jika ini pertama kalinya Anda memasang file APK di luar Google Play Store:
@@ -116,11 +111,10 @@
 
 #### Installation Steps:
 1. **Download the APK**:
-   Click the button below to get the latest release:
+   Click either button below to get the latest release:
    <p align="left">
-     <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases/latest">
-       <img src="https://img.shields.io/badge/Download-Latest%20APK-7C3AED?style=for-the-badge&logo=android&logoColor=white" alt="Download APK" />
-     </a>
+     <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases/download/v1.0.0/FFmpegMediaEncoder-v1.0.0.apk"><img src="https://img.shields.io/badge/Direct%20Download-APK%20(v1.0.0)-7C3AED?style=for-the-badge&logo=android&logoColor=white" alt="Direct Download APK v1.0.0" /></a>&nbsp;
+     <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases/latest"><img src="https://img.shields.io/badge/Releases%20Page-GitHub-10B981?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Releases Page" /></a>
    </p>
 2. **Allow Installation from Unknown Sources**:
    If installing an APK outside Google Play for the first time:
