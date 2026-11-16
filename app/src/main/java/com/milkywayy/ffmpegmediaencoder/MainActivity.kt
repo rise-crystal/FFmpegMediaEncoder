@@ -21,10 +21,16 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.milkywayy.ffmpegmediaencoder.data.LanguageManager
+import com.milkywayy.ffmpegmediaencoder.ui.components.LanguageDropdown
 import com.milkywayy.ffmpegmediaencoder.ui.screens.HistoryScreen
 import com.milkywayy.ffmpegmediaencoder.ui.screens.HomeScreen
 import com.milkywayy.ffmpegmediaencoder.ui.screens.LogScreen
@@ -34,25 +40,49 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            FFmpegMediaEncoderTheme {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    val permissionLauncher = rememberLauncherForActivityResult(
-                        contract = ActivityResultContracts.RequestPermission()
-                    ) { _ -> }
-                    LaunchedEffect(Unit) {
-                        if (checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)
-                            != PackageManager.PERMISSION_GRANTED) {
-                            permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            val context = LocalContext.current
+            var selectedLanguageCode by remember {
+                mutableStateOf(LanguageManager.getSavedLanguageCode(context))
+            }
+
+            val effectiveLanguage = remember(selectedLanguageCode) {
+                LanguageManager.resolveEffectiveLanguage(selectedLanguageCode)
+            }
+
+            val layoutDirection = if (effectiveLanguage.dir == "rtl") {
+                LayoutDirection.Rtl
+            } else {
+                LayoutDirection.Ltr
+            }
+
+            CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
+                FFmpegMediaEncoderTheme {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        val permissionLauncher = rememberLauncherForActivityResult(
+                            contract = ActivityResultContracts.RequestPermission()
+                        ) { _ -> }
+                        LaunchedEffect(Unit) {
+                            if (checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)
+                                != PackageManager.PERMISSION_GRANTED) {
+                                permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                            }
                         }
                     }
-                }
 
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    val viewModel: EncoderViewModel = viewModel()
-                    MainScreen(viewModel)
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        color = MaterialTheme.colorScheme.background
+                    ) {
+                        val viewModel: EncoderViewModel = viewModel()
+                        MainScreen(
+                            viewModel = viewModel,
+                            selectedLanguageCode = selectedLanguageCode,
+                            onLanguageSelected = { newCode ->
+                                selectedLanguageCode = newCode
+                                LanguageManager.saveLanguageCode(context, newCode)
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -67,7 +97,11 @@ private data class NavItem(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(viewModel: EncoderViewModel) {
+fun MainScreen(
+    viewModel: EncoderViewModel,
+    selectedLanguageCode: String,
+    onLanguageSelected: (String) -> Unit
+) {
     var selectedTab by remember { mutableIntStateOf(0) }
 
     val navItems = listOf(
@@ -98,9 +132,18 @@ fun MainScreen(viewModel: EncoderViewModel) {
                         )
                         Text(
                             text = topBarTitle,
-                            style = MaterialTheme.typography.titleLarge
+                            style = MaterialTheme.typography.titleMedium,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
                         )
                     }
+                },
+                actions = {
+                    LanguageDropdown(
+                        selectedCode = selectedLanguageCode,
+                        onLanguageSelected = onLanguageSelected,
+                        modifier = Modifier.padding(end = 8.dp)
+                    )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
