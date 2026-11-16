@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import com.arthenica.ffmpegkit.FFmpegKitConfig
 import com.milkywayy.ffmpegmediaencoder.EncoderViewModel
+import com.milkywayy.ffmpegmediaencoder.data.LocalStrings
 import com.milkywayy.ffmpegmediaencoder.ui.theme.*
 import kotlinx.coroutines.launch
 
@@ -35,6 +36,7 @@ fun LogScreen(viewModel: EncoderViewModel) {
     val clipboardManager = LocalClipboardManager.current
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+    val strings = LocalStrings.current
 
     val allLogsText = if (logs.isEmpty()) {
         ""
@@ -81,7 +83,7 @@ fun LogScreen(viewModel: EncoderViewModel) {
                                     color = MaterialTheme.colorScheme.primary
                                 )
                                 Text(
-                                    text = "File $currentFileIndex dari $totalFiles",
+                                    text = strings.fileOfTotal.format(currentFileIndex, totalFiles),
                                     style = MaterialTheme.typography.titleMedium,
                                     color = MaterialTheme.colorScheme.primary
                                 )
@@ -115,7 +117,7 @@ fun LogScreen(viewModel: EncoderViewModel) {
                                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                                 Text(
-                                    text = "Estimasi: $totalEta",
+                                    text = strings.etaPrefix.format(totalEta),
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -132,7 +134,7 @@ fun LogScreen(viewModel: EncoderViewModel) {
                         ) {
                             Icon(Icons.Outlined.Cancel, contentDescription = null, modifier = Modifier.size(18.dp))
                             Spacer(modifier = Modifier.width(4.dp))
-                            Text("Batalkan")
+                            Text(strings.cancelConversion)
                         }
                     }
                 }
@@ -157,7 +159,7 @@ fun LogScreen(viewModel: EncoderViewModel) {
                         modifier = Modifier.size(20.dp)
                     )
                     Text(
-                        text = "Terminal Log",
+                        text = strings.terminalLogHeader,
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onBackground
                     )
@@ -167,13 +169,13 @@ fun LogScreen(viewModel: EncoderViewModel) {
                         onClick = {
                             clipboardManager.setText(AnnotatedString(allLogsText))
                             scope.launch {
-                                snackbarHostState.showSnackbar("Log tersalin ke clipboard!")
+                                snackbarHostState.showSnackbar(strings.logCopied)
                             }
                         }
                     ) {
                         Icon(
                             Icons.Outlined.ContentCopy,
-                            contentDescription = "Salin log",
+                            contentDescription = strings.copyLog,
                             tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.size(20.dp)
                         )
@@ -234,7 +236,7 @@ fun LogScreen(viewModel: EncoderViewModel) {
                             )
                             Spacer(modifier = Modifier.height(8.dp))
                             Text(
-                                text = "> Menunggu perintah...",
+                                text = "> ${strings.waitingCommand}",
                                 color = TerminalGray,
                                 fontFamily = FontFamily.Monospace,
                                 style = MaterialTheme.typography.bodySmall

@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import com.milkywayy.ffmpegmediaencoder.data.AppDatabase
 import com.milkywayy.ffmpegmediaencoder.data.HistoryEntity
+import com.milkywayy.ffmpegmediaencoder.data.LocalStrings
 import com.milkywayy.ffmpegmediaencoder.ui.components.EmptyState
 import com.milkywayy.ffmpegmediaencoder.ui.theme.*
 import kotlinx.coroutines.launch
@@ -27,6 +28,7 @@ import java.util.*
 @Composable
 fun HistoryScreen() {
     val context = LocalContext.current
+    val strings = LocalStrings.current
     val coroutineScope = rememberCoroutineScope()
     val dao = remember { AppDatabase.getDatabase(context).historyDao() }
     val historyList by dao.getAllHistory().collectAsState(initial = emptyList())
@@ -50,13 +52,13 @@ fun HistoryScreen() {
                     tint = MaterialTheme.colorScheme.error
                 )
             },
-            title = { Text("Hapus Riwayat") },
+            title = { Text(strings.deleteHistoryTitle) },
             text = {
                 Text(
                     if (selectedIds.size == historyList.size)
-                        "Hapus semua riwayat konversi (${historyList.size} item)? Tindakan ini tidak dapat dibatalkan."
+                        strings.deleteAllHistoryConfirm.format(historyList.size)
                     else
-                        "Hapus ${selectedIds.size} riwayat yang dipilih? Tindakan ini tidak dapat dibatalkan."
+                        strings.deleteSelectedHistoryConfirm.format(selectedIds.size)
                 )
             },
             confirmButton = {
@@ -71,12 +73,12 @@ fun HistoryScreen() {
                     }
                     showDeleteDialog = false
                 }) {
-                    Text("Hapus", color = MaterialTheme.colorScheme.error)
+                    Text(strings.delete, color = MaterialTheme.colorScheme.error)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showDeleteDialog = false }) {
-                    Text("Batal")
+                    Text(strings.cancel)
                 }
             },
             shape = MaterialTheme.shapes.medium
@@ -103,14 +105,14 @@ fun HistoryScreen() {
                 modifier = Modifier.size(20.dp)
             )
             Text(
-                text = "Riwayat Konversi",
+                text = strings.historyTitle,
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.weight(1f)
             )
             if (historyList.isNotEmpty()) {
                 Text(
-                    text = "${historyList.size} item",
+                    text = strings.itemsCount.format(historyList.size),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -139,13 +141,13 @@ fun HistoryScreen() {
                         modifier = Modifier.size(20.dp)
                     )
                     Text(
-                        text = if (allSelected) "Batal Pilih Semua" else "Pilih Semua",
+                        text = if (allSelected) strings.deselectAll else strings.selectAll,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     if (selectedIds.isNotEmpty()) {
                         Text(
-                            text = "(${selectedIds.size} dipilih)",
+                            text = strings.selectedCount.format(selectedIds.size),
                             style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -164,7 +166,7 @@ fun HistoryScreen() {
                             modifier = Modifier.size(18.dp)
                         )
                         Spacer(modifier = Modifier.width(4.dp))
-                        Text("Hapus")
+                        Text(strings.delete)
                     }
                 }
             }
@@ -173,8 +175,8 @@ fun HistoryScreen() {
         if (historyList.isEmpty()) {
             EmptyState(
                 icon = Icons.Outlined.History,
-                title = "Belum ada riwayat",
-                description = "Riwayat konversi akan muncul di sini",
+                title = strings.emptyHistoryTitle,
+                description = strings.emptyHistoryDesc,
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth()
@@ -214,6 +216,7 @@ private fun HistoryCard(
     onToggleSelect: (String) -> Unit,
     onDelete: () -> Unit
 ) {
+    val strings = LocalStrings.current
     var expanded by remember { mutableStateOf(false) }
     val isSuccess = item.status == "SUCCESS"
 
@@ -286,7 +289,7 @@ private fun HistoryCard(
                             Icon(
                                 if (expanded) Icons.Outlined.ExpandLess
                                 else Icons.Outlined.ExpandMore,
-                                contentDescription = "Detail",
+                                contentDescription = strings.detail,
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                 modifier = Modifier.size(18.dp)
                             )
@@ -298,7 +301,7 @@ private fun HistoryCard(
                     ) {
                         Icon(
                             Icons.Outlined.Delete,
-                            contentDescription = "Hapus",
+                            contentDescription = strings.delete,
                             tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
                             modifier = Modifier.size(18.dp)
                         )
@@ -324,7 +327,7 @@ private fun HistoryCard(
                         .padding(horizontal = 6.dp, vertical = 2.dp)
                 ) {
                     Text(
-                        text = if (isSuccess) "Berhasil" else "Gagal",
+                        text = if (isSuccess) strings.historySuccess else strings.historyFailed,
                         style = MaterialTheme.typography.labelSmall,
                         color = if (isSuccess) SuccessGreen else ErrorRed
                     )

@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -17,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.milkywayy.ffmpegmediaencoder.EncoderViewModel
+import com.milkywayy.ffmpegmediaencoder.data.LocalStrings
 import com.milkywayy.ffmpegmediaencoder.ui.components.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -26,6 +26,7 @@ fun HomeScreen(
     onNavigateToLog: () -> Unit = {}
 ) {
     val context = LocalContext.current
+    val strings = LocalStrings.current
     val queue by viewModel.queue.collectAsState()
     val outputFormat by viewModel.outputFormat.collectAsState()
     val preset by viewModel.preset.collectAsState()
@@ -59,19 +60,19 @@ fun HomeScreen(
         AlertDialog(
             onDismissRequest = { showConfirmDialog = false },
             icon = { Icon(Icons.Outlined.Warning, contentDescription = null, tint = MaterialTheme.colorScheme.error) },
-            title = { Text("Konfirmasi") },
-            text = { Text("Apakah Anda yakin ingin menghapus file asli setelah konversi berhasil? File tidak dapat dikembalikan.") },
+            title = { Text(strings.confirmTitle) },
+            text = { Text(strings.confirmDeleteOriginalMsg) },
             confirmButton = {
                 TextButton(onClick = {
                     viewModel.setDeleteOriginal(true)
                     showConfirmDialog = false
                 }) {
-                    Text("Ya, Hapus", color = MaterialTheme.colorScheme.error)
+                    Text(strings.yesDelete, color = MaterialTheme.colorScheme.error)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showConfirmDialog = false }) {
-                    Text("Batal")
+                    Text(strings.cancel)
                 }
             },
             shape = MaterialTheme.shapes.medium
@@ -83,7 +84,7 @@ fun HomeScreen(
             ExtendedFloatingActionButton(
                 onClick = { filePickerLauncher.launch(arrayOf("video/*", "audio/*")) },
                 icon = { Icon(Icons.Outlined.Add, contentDescription = null) },
-                text = { Text("Tambah File") },
+                text = { Text(strings.addFiles) },
                 containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = MaterialTheme.colorScheme.onPrimary
             )
@@ -115,7 +116,7 @@ fun HomeScreen(
                         modifier = Modifier.size(20.dp)
                     )
                     Text(
-                        text = "Antrian (${queue.size})",
+                        text = strings.queueTitle.format(queue.size),
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onBackground
                     )
@@ -125,7 +126,7 @@ fun HomeScreen(
                         IconButton(onClick = { viewModel.selectAllQueueItems() }) {
                             Icon(
                                 Icons.Outlined.SelectAll,
-                                contentDescription = "Pilih Semua",
+                                contentDescription = strings.selectAll,
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
@@ -135,7 +136,7 @@ fun HomeScreen(
                         ) {
                             Icon(
                                 Icons.Outlined.Delete,
-                                contentDescription = "Hapus Terpilih",
+                                contentDescription = strings.deleteSelected,
                                 tint = if (selectedItems.isNotEmpty()) MaterialTheme.colorScheme.error
                                        else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f)
                             )
@@ -148,11 +149,11 @@ fun HomeScreen(
             if (queue.isEmpty()) {
                 EmptyState(
                     icon = Icons.Outlined.MovieFilter,
-                    title = "Tidak ada antrian",
-                    description = "Ketuk tombol + Tambah File untuk memulai proses konversi.",
+                    title = strings.emptyQueueTitle,
                     modifier = Modifier
                         .weight(1f)
-                        .fillMaxWidth()
+                        .fillMaxWidth(),
+                    description = strings.emptyQueueDesc
                 )
             } else {
                 LazyColumn(
@@ -194,7 +195,7 @@ fun HomeScreen(
                             modifier = Modifier.size(20.dp)
                         )
                         Text(
-                            text = "Pengaturan Konversi",
+                            text = strings.conversionSettings,
                             style = MaterialTheme.typography.titleMedium
                         )
                     }
@@ -205,14 +206,14 @@ fun HomeScreen(
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
                         AppDropdown(
-                            label = "Format",
+                            label = strings.formatLabel,
                             selectedValue = outputFormat,
                             options = listOf("mp4", "mkv", "mov", "avi", "webm", "mp3", "aac"),
                             onValueSelected = { viewModel.setOutputFormat(it) },
                             modifier = Modifier.weight(1f)
                         )
                         AppDropdown(
-                            label = "Preset",
+                            label = strings.presetLabel,
                             selectedValue = preset,
                             options = listOf("Original Quality", "Compress Video", "720p", "Video to MP3"),
                             onValueSelected = { viewModel.setPreset(it) },
@@ -233,8 +234,8 @@ fun HomeScreen(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = if (outputFolderUri != null) "Output: ${outputFolderUri?.lastPathSegment}"
-                                   else "Pilih Folder Output",
+                            text = if (outputFolderUri != null) "${strings.outputFolderPrefix}${outputFolderUri?.lastPathSegment}"
+                                   else strings.selectOutputFolder,
                             maxLines = 1
                         )
                     }
@@ -254,7 +255,7 @@ fun HomeScreen(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "Hapus file asli setelah konversi",
+                            text = strings.deleteOriginalCheck,
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -288,7 +289,7 @@ fun HomeScreen(
                 Icon(Icons.Outlined.RocketLaunch, contentDescription = null, modifier = Modifier.size(24.dp))
                 Spacer(modifier = Modifier.width(12.dp))
                 Text(
-                    text = if (isConverting) "Mengonversi..." else "Mulai Konversi",
+                    text = if (isConverting) strings.converting else strings.startConversion,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
                 )

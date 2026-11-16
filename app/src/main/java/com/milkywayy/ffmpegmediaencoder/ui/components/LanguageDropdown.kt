@@ -13,10 +13,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.milkywayy.ffmpegmediaencoder.data.LanguageManager
-import com.milkywayy.ffmpegmediaencoder.data.LanguageOption
 
 @Composable
 fun LanguageDropdown(
@@ -33,38 +31,35 @@ fun LanguageDropdown(
     }
 
     Box(modifier = modifier) {
+        // Compact pill button for navbar
         Surface(
-            shape = RoundedCornerShape(20.dp),
+            shape = RoundedCornerShape(16.dp),
             color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
             border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.25f)),
             modifier = Modifier.clickable { expanded = true }
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(6.dp),
-                modifier = Modifier
-                    .padding(horizontal = 10.dp, vertical = 6.dp)
-                    .widthIn(max = 160.dp)
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 5.dp)
             ) {
                 Icon(
                     imageVector = Icons.Outlined.Language,
                     contentDescription = "Language",
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(18.dp)
+                    modifier = Modifier.size(16.dp)
                 )
                 Text(
-                    text = currentOption.label,
+                    text = currentOption.shortCode,
                     style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(1f, fill = false)
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 Icon(
                     imageVector = Icons.Filled.ArrowDropDown,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.size(18.dp)
+                    modifier = Modifier.size(16.dp)
                 )
             }
         }
@@ -79,12 +74,22 @@ fun LanguageDropdown(
                 DropdownMenuItem(
                     text = {
                         Column {
-                            Text(
-                                text = option.label,
-                                style = MaterialTheme.typography.bodyMedium,
-                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                                color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
-                            )
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Text(
+                                    text = option.label,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                                    color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                                )
+                                Text(
+                                    text = option.shortCode,
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                                )
+                            }
                             if (option.code == "auto") {
                                 Text(
                                     text = "System: ${detectedLanguage.label}",

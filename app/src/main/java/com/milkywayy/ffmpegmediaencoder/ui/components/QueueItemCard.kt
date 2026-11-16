@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.milkywayy.ffmpegmediaencoder.data.LocalStrings
 import com.milkywayy.ffmpegmediaencoder.data.MediaQueueItem
 import com.milkywayy.ffmpegmediaencoder.data.QueueStatus
 import com.milkywayy.ffmpegmediaencoder.ui.theme.*
@@ -31,6 +32,7 @@ fun QueueItemCard(
     onRemove: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val strings = LocalStrings.current
     val statusColor by animateColorAsState(
         targetValue = when (item.status) {
             QueueStatus.SUCCESS -> SuccessGreen
@@ -122,7 +124,7 @@ fun QueueItemCard(
                     ) {
                         Icon(
                             Icons.Outlined.Close,
-                            contentDescription = "Hapus",
+                            contentDescription = strings.delete,
                             tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.size(18.dp)
                         )
@@ -160,12 +162,13 @@ fun QueueItemCard(
 
 @Composable
 private fun StatusChip(status: QueueStatus) {
+    val strings = LocalStrings.current
     val (backgroundColor, textColor, label) = when (status) {
-        QueueStatus.WAITING -> Triple(WarningYellow.copy(alpha = 0.15f), WarningYellow, "Menunggu")
-        QueueStatus.PROCESSING -> Triple(ProcessingBlue.copy(alpha = 0.15f), ProcessingBlue, "Proses")
-        QueueStatus.SUCCESS -> Triple(SuccessGreen.copy(alpha = 0.15f), SuccessGreen, "Selesai")
-        QueueStatus.FAILED -> Triple(ErrorRed.copy(alpha = 0.15f), ErrorRed, "Gagal")
-        QueueStatus.CANCELLED -> Triple(CancelledGray.copy(alpha = 0.15f), CancelledGray, "Dibatalkan")
+        QueueStatus.WAITING -> Triple(WarningYellow.copy(alpha = 0.15f), WarningYellow, strings.statusWaiting)
+        QueueStatus.PROCESSING -> Triple(ProcessingBlue.copy(alpha = 0.15f), ProcessingBlue, strings.statusProcessing)
+        QueueStatus.SUCCESS -> Triple(SuccessGreen.copy(alpha = 0.15f), SuccessGreen, strings.statusSuccess)
+        QueueStatus.FAILED -> Triple(ErrorRed.copy(alpha = 0.15f), ErrorRed, strings.statusFailed)
+        QueueStatus.CANCELLED -> Triple(CancelledGray.copy(alpha = 0.15f), CancelledGray, strings.statusCancelled)
     }
 
     Box(

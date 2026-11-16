@@ -10,12 +10,12 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases/latest"><img src="https://img.shields.io/badge/Download-APK-7C3AED?style=for-the-badge&logo=android&logoColor=white" alt="Download APK" /></a>&nbsp;
-  <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases"><img src="https://img.shields.io/github/v/release/rise-crystal/FFmpegMediaEncoder?style=for-the-badge&color=10B981&label=Latest%20Release" alt="Latest Release" /></a>&nbsp;
-  <a href="https://developer.android.com/about/versions/oreo"><img src="https://img.shields.io/badge/Platform-Android%208.0%2B-2DD4BF?style=for-the-badge&logo=android&logoColor=white" alt="Platform: Android 8.0+" /></a>&nbsp;
-  <a href="https://kotlinlang.org/docs/whatsnew19.html"><img src="https://img.shields.io/badge/Kotlin-1.9.0-8B5CF6?style=for-the-badge&logo=kotlin&logoColor=white" alt="Kotlin 1.9.0" /></a>&nbsp;
-  <a href="https://github.com/arthenica/ffmpeg-kit"><img src="https://img.shields.io/badge/FFmpegKit-v6.0-FF5722?style=for-the-badge&logo=ffmpeg&logoColor=white" alt="FFmpegKit v6.0" /></a>&nbsp;
-  <a href="https://developer.android.com/jetpack/compose"><img src="https://img.shields.io/badge/Compose-Material%203-4285F4?style=for-the-badge&logo=jetpackcompose&logoColor=white" alt="Jetpack Compose Material 3" /></a>&nbsp;
+  <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases/latest"><img src="https://img.shields.io/badge/Download-APK-7C3AED?style=for-the-badge&logo=android&logoColor=white" alt="Download APK" /></a>
+  <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases"><img src="https://img.shields.io/github/v/release/rise-crystal/FFmpegMediaEncoder?style=for-the-badge&color=10B981&label=Latest%20Release" alt="Latest Release" /></a>
+  <a href="https://developer.android.com/about/versions/oreo"><img src="https://img.shields.io/badge/Platform-Android%208.0%2B-2DD4BF?style=for-the-badge&logo=android&logoColor=white" alt="Platform: Android 8.0+" /></a>
+  <a href="https://kotlinlang.org/docs/whatsnew19.html"><img src="https://img.shields.io/badge/Kotlin-1.9.0-8B5CF6?style=for-the-badge&logo=kotlin&logoColor=white" alt="Kotlin 1.9.0" /></a>
+  <a href="https://github.com/arthenica/ffmpeg-kit"><img src="https://img.shields.io/badge/FFmpegKit-v6.0-FF5722?style=for-the-badge&logo=ffmpeg&logoColor=white" alt="FFmpegKit v6.0" /></a>
+  <a href="https://developer.android.com/jetpack/compose"><img src="https://img.shields.io/badge/Compose-Material%203-4285F4?style=for-the-badge&logo=jetpackcompose&logoColor=white" alt="Jetpack Compose Material 3" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-F59E0B?style=for-the-badge" alt="License: MIT" /></a>
 </p>
 
@@ -58,7 +58,7 @@
 1. **Unduh File APK**:
    Klik salah satu tombol di bawah ini untuk mengunduh versi rilis terbaru:
    <p align="left">
-     <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases/download/v1.0.0/FFmpegMediaEncoder-v1.0.0.apk"><img src="https://img.shields.io/badge/Unduh%20Langsung-APK%20(v1.0.0)-7C3AED?style=for-the-badge&logo=android&logoColor=white" alt="Unduh Langsung APK v1.0.0" /></a>&nbsp;
+     <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases/download/v1.0.1/FFmpegMediaEncoder-v1.0.1.apk"><img src="https://img.shields.io/badge/Unduh%20Langsung-APK%20(v1.0.1)-7C3AED?style=for-the-badge&logo=android&logoColor=white" alt="Unduh Langsung APK v1.0.1" /></a>
      <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases/latest"><img src="https://img.shields.io/badge/Halaman%20Rilis-GitHub-10B981?style=for-the-badge&logo=github&logoColor=white" alt="Halaman Rilis GitHub" /></a>
    </p>
 2. **Izinkan Instalasi dari Sumber Tidak Dikenal**:
@@ -128,7 +128,7 @@
 1. **Download the APK**:
    Click either button below to get the latest release:
    <p align="left">
-     <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases/download/v1.0.0/FFmpegMediaEncoder-v1.0.0.apk"><img src="https://img.shields.io/badge/Direct%20Download-APK%20(v1.0.0)-7C3AED?style=for-the-badge&logo=android&logoColor=white" alt="Direct Download APK v1.0.0" /></a>&nbsp;
+     <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases/download/v1.0.1/FFmpegMediaEncoder-v1.0.1.apk"><img src="https://img.shields.io/badge/Direct%20Download-APK%20(v1.0.1)-7C3AED?style=for-the-badge&logo=android&logoColor=white" alt="Direct Download APK v1.0.1" /></a>
      <a href="https://github.com/rise-crystal/FFmpegMediaEncoder/releases/latest"><img src="https://img.shields.io/badge/Releases%20Page-GitHub-10B981?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Releases Page" /></a>
    </p>
 2. **Allow Installation from Unknown Sources**:

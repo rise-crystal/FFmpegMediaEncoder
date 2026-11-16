@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.milkywayy.ffmpegmediaencoder.data.LanguageManager
+import com.milkywayy.ffmpegmediaencoder.data.LocalStrings
 import com.milkywayy.ffmpegmediaencoder.ui.components.LanguageDropdown
 import com.milkywayy.ffmpegmediaencoder.ui.screens.HistoryScreen
 import com.milkywayy.ffmpegmediaencoder.ui.screens.HomeScreen
@@ -55,7 +56,14 @@ class MainActivity : ComponentActivity() {
                 LayoutDirection.Ltr
             }
 
-            CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
+            val strings = remember(selectedLanguageCode) {
+                LanguageManager.getStrings(selectedLanguageCode)
+            }
+
+            CompositionLocalProvider(
+                LocalLayoutDirection provides layoutDirection,
+                LocalStrings provides strings
+            ) {
                 FFmpegMediaEncoderTheme {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         val permissionLauncher = rememberLauncherForActivityResult(
@@ -102,19 +110,22 @@ fun MainScreen(
     selectedLanguageCode: String,
     onLanguageSelected: (String) -> Unit
 ) {
+    val strings = LocalStrings.current
     var selectedTab by remember { mutableIntStateOf(0) }
 
-    val navItems = listOf(
-        NavItem("Converter", Icons.Outlined.VideoFile, Icons.Filled.VideoFile),
-        NavItem("Log", Icons.Outlined.Terminal, Icons.Filled.Terminal),
-        NavItem("History", Icons.Outlined.History, Icons.Filled.History)
-    )
+    val navItems = remember(strings) {
+        listOf(
+            NavItem(strings.navConverter, Icons.Outlined.VideoFile, Icons.Filled.VideoFile),
+            NavItem(strings.navLog, Icons.Outlined.Terminal, Icons.Filled.Terminal),
+            NavItem(strings.navHistory, Icons.Outlined.History, Icons.Filled.History)
+        )
+    }
 
     val topBarTitle = when (selectedTab) {
-        0 -> "FFmpeg Media Encoder"
-        1 -> "Terminal Log"
-        2 -> "Riwayat"
-        else -> "FFmpeg Media Encoder"
+        0 -> strings.topBarConverter
+        1 -> strings.topBarLog
+        2 -> strings.topBarHistory
+        else -> strings.appTitle
     }
 
     Scaffold(
